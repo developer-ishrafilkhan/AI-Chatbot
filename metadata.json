@@ -1,0 +1,6 @@
+{
+  "name": "OmniBot AI: Multivendor Chatbot Platform",
+  "description": "A full-stack, multi-tenant platform where users can create, customize, and embed their own AI chatbots using their own Gemini API keys, featuring advanced analytics and a premium subscription model.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

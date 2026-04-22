@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "Vendor": {
+      "title": "Vendor",
+      "description": "A user who creates and manages chatbots.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "geminiApiKey": { "type": "string", "description": "User's own Gemini API key." },
+        "plan": { "type": "string", "enum": ["free", "premium"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "plan"]
+    },
+    "Chatbot": {
+      "title": "Chatbot",
+      "description": "Configuration for a specific chatbot.",
+      "type": "object",
+      "properties": {
+        "vendorId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "systemPrompt": { "type": "string" },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "primaryColor": { "type": "string" },
+            "welcomeMessage": { "type": "string" },
+            "avatarUrl": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["vendorId", "name"]
+    },
+    "Analytics": {
+      "title": "Analytics",
+      "description": "Usage statistics for a chatbot.",
+      "type": "object",
+      "properties": {
+        "chatbotId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "messageCount": { "type": "integer" },
+        "sessionCount": { "type": "integer" }
+      },
+      "required": ["chatbotId", "date"]
+    }
+  },
+  "firestore": {
+    "/vendors/{vendorId}": {
+      "schema": "Vendor",
+      "description": "Vendor profile data."
+    },
+    "/chatbots/{chatbotId}": {
+      "schema": "Chatbot",
+      "description": "Chatbot configuration."
+    },
+    "/chatbots/{chatbotId}/analytics/{date}": {
+      "schema": "Analytics",
+      "description": "Daily analytics for a chatbot."
+    },
+    "/chatbots/{chatbotId}/conversations/{convId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "Chat sessions."
+    }
+  }
+}
